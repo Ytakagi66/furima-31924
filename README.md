@@ -34,8 +34,8 @@ Things you may want to cover:
 | encrypted_password    | string | null: false               |
 | last_name             | string | null: false               |
 | first_name            | string | null: false               |
-| last-name-kana        | string | null: false               |
-| first-name-kana       | string | null: false               |
+| last_name_kana        | string | null: false               |
+| first_name_kana       | string | null: false               |
 | birthday              | date   | null: false               |
 
 ### Association
@@ -45,21 +45,21 @@ Things you may want to cover:
 
 ## items テーブル
 
-| Column       | Type       | Options                        |
-| ------------ | ---------- | ------------------------------ |
-| item_name    | string     | null: false                    |
-| info         | text       | null: false                    |
-| category_id  | integer    | null: false                    |
-| status       | string     | null: false                    |
-| shipping_fee | string     | null: false                    |
-| prefecture   | string     | null: false                    |
-| scheduled    | string     | null: false                    |
-| price        | integer    | null: false                    |
-| user         | references | null: false, foreign_key: true |
+| Column          | Type       | Options                        |
+| --------------- | ---------- | ------------------------------ |
+| item_name       | string     | null: false                    |
+| info            | text       | null: false                    |
+| category_id     | integer    | null: false                    |
+| status_id       | integer    | null: false                    |
+| shipping_fee_id | integer    | null: false                    |
+| prefecture_id   | integer    | null: false                    |
+| scheduled_id    | integer    | null: false                    |
+| price           | integer    | null: false                    |
+| user            | references | null: false, foreign_key: true |
 
 ### Association
 
-- has_many :orders
+- has_one :order
 - belongs_to :user
 
 ## orders テーブル
@@ -79,12 +79,12 @@ Things you may want to cover:
 
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
-| postal-code  | string     | null: false                    |
-| select-box   | string     | null: false                    |
+| postal_code  | string     | null: false                    |
+| prefecture_id| integer    | null: false                    |
 | city         | string     | null: false                    |
 | address      | string     | null: false                    |
 | building     | string     |                                |
-| phone-number | string     | null: false                    |
+| phone_number | string     | null: false                    |
 | order        | references | null: false, foreign_key: true |
 ### Association
 

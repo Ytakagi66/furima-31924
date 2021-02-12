@@ -47,7 +47,7 @@ Things you may want to cover:
 
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
-| item_name       | string     | null: false                    |
+| name            | string     | null: false                    |
 | info            | text       | null: false                    |
 | category_id     | integer    | null: false                    |
 | status_id       | integer    | null: false                    |

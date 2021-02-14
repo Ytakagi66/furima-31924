@@ -14,13 +14,13 @@ class User < ApplicationRecord
 
   with_options presence: true do
     # validates :email,    format: { with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
-    validates :password, format: { with: VALID_PASSWORD_REGEX}, confirmation: true, length: { minimum: 6 }
-    validates :nickname 
-    with_options format: {with: VALID_NAME_REGEX} do
+    validates :password, format: { with: VALID_PASSWORD_REGEX }, confirmation: true, length: { minimum: 6 }
+    validates :nickname
+    with_options format: { with: VALID_NAME_REGEX } do
       validates :last_name
       validates :first_name
     end
-    with_options format: {with: VALID_NAME_KANA_REGEX} do
+    with_options format: { with: VALID_NAME_KANA_REGEX } do
       validates :last_name_kana
       validates :first_name_kana
     end

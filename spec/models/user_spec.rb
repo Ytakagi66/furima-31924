@@ -81,7 +81,7 @@ RSpec.describe User, type: :model do
       @user.first_name = 'ﾊﾅ'
       @user.valid?
       expect(@user.errors.full_messages).to include('First name is invalid')
-    end    
+    end
     it 'ユーザー本名(ミョウジ)のフリガナは、名字があっても名前が空だと登録できない' do
       @user.last_name_kana = ''
       @user.valid?
@@ -101,7 +101,7 @@ RSpec.describe User, type: :model do
       @user.first_name_kana = 'ﾊﾅ'
       @user.valid?
       expect(@user.errors.full_messages).to include('First name kana is invalid')
-    end    
+    end
     it '生年月日が空だと登録できない' do
       @user.birthday = ''
       @user.valid?

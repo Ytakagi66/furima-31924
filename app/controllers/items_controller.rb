@@ -9,12 +9,20 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
-    if @item.save
-      redirect_to root_path
+    @item = Item.create(params[:id])
+    redirect_to action: :new
+  end
+
+  def price
+    binding.pry
+    item = Item.find(content: params[:price])
+    if item.checked 
+      item.update(price: false)
     else
-      render :new
+      item.update(price: true)
     end
+    item = Item.find(params[:id])
+    render json: { post: item }
   end
 
   def item_params

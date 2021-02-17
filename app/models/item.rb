@@ -19,5 +19,6 @@ class Item < ApplicationRecord
   has_many :scheduled
   has_many :shipping_fee
   has_many :status
+  has_one_attached :image
   end
 end

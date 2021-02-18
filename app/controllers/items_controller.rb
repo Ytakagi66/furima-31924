@@ -9,23 +9,16 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.create(params[:id])
-    redirect_to action: :new
-  end
-
-  def price
     binding.pry
-    item = Item.find(content: params[:price])
-    if item.checked 
-      item.update(price: false)
-    else
-      item.update(price: true)
-    end
-    item = Item.find(params[:id])
-    render json: { post: item }
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to root_path
+    else   
+      render :new
+    end  
   end
 
   def item_params
-    params.require(:item).permit(:name, :info, :price,:category_id, :status_id, :shipping_fee_id, :prefecture_id, :scheduled_id, :image)
+    params.require(:item).permit(:name, :info, :price,:category_id, :status_id, :shipping_fee_id, :prefecture_id, :scheduled_id, :image).merge(user_id: current_user.id)
   end
 end

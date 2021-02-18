@@ -6,8 +6,8 @@ class Item < ApplicationRecord
 
   with_options presence: true do
     validates :image
-    validates :name
-    validates :info
+    validates :name, length: { maximum: 40 }
+    validates :info, length: { maximum: 1000 }
     validates :price, format: { with: VALID_PRICE_REGEX },
                       numericality: { only_integer: true, greater_than: 300, less_than: 9_999_999 }
   end

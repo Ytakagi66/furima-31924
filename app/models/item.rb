@@ -6,11 +6,11 @@ class Item < ApplicationRecord
 
   with_options presence: true do
     validates :image
-    validates :name 
+    validates :name
     validates :info
-    validates :price, format: { with: VALID_PRICE_REGEX },numericality: { only_integer: true, greater_than: 300, less_than: 9999999 }
+    validates :price, format: { with: VALID_PRICE_REGEX },
+                      numericality: { only_integer: true, greater_than: 300, less_than: 9_999_999 }
   end
-  
 
   with_options numericality: { other_than: 0 } do
     validates :category_id
@@ -21,10 +21,10 @@ class Item < ApplicationRecord
   end
 
   extend ActiveHash::Associations::ActiveRecordExtensions do
-  has_many :category
-  has_many :prefecture
-  has_many :scheduled
-  has_many :shipping_fee
-  has_many :status
+    has_many :category
+    has_many :prefecture
+    has_many :scheduled
+    has_many :shipping_fee
+    has_many :status
   end
 end

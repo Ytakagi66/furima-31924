@@ -9,7 +9,7 @@ class Item < ApplicationRecord
     validates :name, length: { maximum: 40 }
     validates :info, length: { maximum: 1000 }
     validates :price, format: { with: VALID_PRICE_REGEX },
-                      numericality: { only_integer: true, greater_than: 300, less_than: 9_999_999 }
+                      numericality: { only_integer: true, greater_than: 299, less_than: 9_999_999 }
   end
 
   with_options numericality: { other_than: 0 } do

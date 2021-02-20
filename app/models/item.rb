@@ -20,11 +20,10 @@ class Item < ApplicationRecord
     validates :scheduled_id
   end
 
-  extend ActiveHash::Associations::ActiveRecordExtensions do
-    has_many :category
-    has_many :prefecture
-    has_many :scheduled
-    has_many :shipping_fee
-    has_many :status
-  end
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
+  belongs_to :prefecture
+  belongs_to :scheduled
+  belongs_to :shipping_fee
+  belongs_to :status
 end

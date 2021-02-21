@@ -126,10 +126,9 @@
     <ul class='item-lists'>
 
       <% if @items.present? %>
-      <%# 商品情報の表示 %>
       <% @items.each do |item| %>
       <li class='list'>
-        <%= link_to "#" do %>
+        <%= link_to item_path(item.id) do %>
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
 
@@ -155,9 +154,7 @@
         <% end %>
       </li>
       <% end %>
-      <%# 商品情報の表示 %>
 
-      <%# 商品がない場合のみダミー画像を表示する %>
       <% else %>
       <li class='list'>
         <%= link_to '#' do %>
@@ -177,7 +174,6 @@
         <% end %>
       </li>
       <% end %>
-      <%# 商品がない場合のみダミー画像を表示する %>
     </ul>
   </div>
   <%# /商品一覧 %>

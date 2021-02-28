@@ -3,7 +3,6 @@ class Item < ApplicationRecord
   has_one_attached :image
   has_many :order
 
-
   VALID_PRICE_REGEX = /\A[0-9]+\z/.freeze
 
   with_options presence: true do

@@ -7,7 +7,7 @@ RSpec.describe OrderShipping, type: :model do
 
   describe '購入機能' do
     describe '商品購入できる時' do
-      it '必要な情報を適切に入力すると、商品の購入ができる' do
+      it 'カード情報と住所情報を適切に入力すると、商品の購入ができる' do
         expect(@ordershipping).to be_valid
       end
     end
@@ -16,27 +16,27 @@ RSpec.describe OrderShipping, type: :model do
       it '配送先の情報として、郵便番号がなければ購入できない' do
         @ordershipping.postal_code = nil
         @ordershipping.valid?
-        expect(@ordershipping.errors.full_messages).to include("Postal code can't be blank", "Postal code is invalid")
+        expect(@ordershipping.errors.full_messages).to include("Postal code can't be blank", 'Postal code is invalid')
       end
       it '郵便番号にはハイフンがないと購入できない（123-4567となる）' do
-        @ordershipping.postal_code = 1234567
+        @ordershipping.postal_code = 1_234_567
         @ordershipping.valid?
-        expect(@ordershipping.errors.full_messages).to include("Postal code is invalid")
+        expect(@ordershipping.errors.full_messages).to include('Postal code is invalid')
       end
       it '郵便番号が1234-567の形だと購入できない' do
-        @ordershipping.postal_code = 1234-567
+        @ordershipping.postal_code = 1234 - 567
         @ordershipping.valid?
-        expect(@ordershipping.errors.full_messages).to include("Postal code is invalid")
+        expect(@ordershipping.errors.full_messages).to include('Postal code is invalid')
       end
       it '郵便番号に数字以外が含まれていると購入できない' do
-        @ordershipping.postal_code = "1234&567"
+        @ordershipping.postal_code = '1234&567'
         @ordershipping.valid?
-        expect(@ordershipping.errors.full_messages).to include("Postal code is invalid")
+        expect(@ordershipping.errors.full_messages).to include('Postal code is invalid')
       end
       it '配送先の情報として、都道府県がなければ購入できない' do
         @ordershipping.prefecture_id = 0
         @ordershipping.valid?
-        expect(@ordershipping.errors.full_messages).to include("Prefecture must be other than 0")
+        expect(@ordershipping.errors.full_messages).to include('Prefecture must be other than 0')
       end
       it '配送先の情報として、市区町村がなければ購入できない' do
         @ordershipping.city = nil
@@ -51,27 +51,32 @@ RSpec.describe OrderShipping, type: :model do
       it '配送先の情報として、電話番号がなければ購入できない' do
         @ordershipping.phone_number = nil
         @ordershipping.valid?
-        expect(@ordershipping.errors.full_messages).to include("Phone number can't be blank", "Phone number is invalid")
+        expect(@ordershipping.errors.full_messages).to include("Phone number can't be blank", 'Phone number is invalid')
       end
       it '電話番号が11桁以上だと購入できないこと' do
-        @ordershipping.phone_number = 123456789012
+        @ordershipping.phone_number = 123_456_789_012
         @ordershipping.valid?
-        expect(@ordershipping.errors.full_messages).to include("Phone number is invalid")
+        expect(@ordershipping.errors.full_messages).to include('Phone number is invalid')
       end
       it '電話番号にはハイフンがあると購入できないこと' do
-        @ordershipping.phone_number = 0120-34-5678
+        @ordershipping.phone_number = 0o120 - 34 - 5678
         @ordershipping.valid?
-        expect(@ordershipping.errors.full_messages).to include("Phone number is invalid")
+        expect(@ordershipping.errors.full_messages).to include('Phone number is invalid')
       end
       it '電話番号に全角数字以外が含まれていると購入できない' do
         @ordershipping.phone_number = '０１２３４５６７８９'
         @ordershipping.valid?
-        expect(@ordershipping.errors.full_messages).to include("Phone number is invalid")
+        expect(@ordershipping.errors.full_messages).to include('Phone number is invalid')
       end
       it '電話番号に数字以外が含まれていると購入できない' do
         @ordershipping.phone_number = 'あ１２３４５６７８９'
         @ordershipping.valid?
-        expect(@ordershipping.errors.full_messages).to include("Phone number is invalid")
+        expect(@ordershipping.errors.full_messages).to include('Phone number is invalid')
+      end
+      it 'tokenが空では登録できないこと' do
+        @ordershipping.token = nil
+        @ordershipping.valid?
+        expect(@ordershipping.errors.full_messages).to include("Token can't be blank")
       end
     end
   end

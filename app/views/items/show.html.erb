@@ -7,9 +7,11 @@
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
       <%# 商品が売れている場合は、sold outを表示しましょう %>
-      <div class="sold-out">
-        <span>Sold Out!!</span>
-      </div>
+      <% if @item.order.present? %>
+        <div class="sold-out">
+          <span>Sold Out!!</span>
+        </div>
+      <% end %>
       <%# //商品が売れている場合は、sold outを表示しましょう %>
     </div>
     <div class="item-price-box">
@@ -31,9 +33,11 @@
       <%# ログインしているユーザーが出品者の時のみ表示する　%>
       <% else %>
         <%# 出品者以外がログイン中の時のみ表示する　%>
-        <%# 商品が売れていない場合はこちらを表示しましょう %>
-        <%= link_to "購入画面に進む", item_orders_path(@item.id) ,class:"item-red-btn"%>
-        <%# //商品が売れていない場合はこちらを表示しましょう %>
+        <%# 商品が売れていない場合のみ表示する %>
+        <% if @item.order.blank? %>
+          <%= link_to "購入画面に進む", item_orders_path(@item.id) ,class:"item-red-btn"%>
+        <% end %>
+        <%# //商品が売れていない場合のみ表示する %>
         <%# 出品者以外がログイン中の時のみ表示する　%>
       <% end %>
     <% end %>
@@ -105,7 +109,7 @@
       後ろの商品 ＞
     </a>
   </div>
-  <%# 詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
+  <%# 詳細ページで表示されている商品のカテゴリー名を表示する %>
   <a href="#" class="another-item"><%= @item.category.name %>をもっと見る</a>
-  <%# //詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
+  <%# //詳細ページで表示されている商品のカテゴリー名を表示する %>
 </div>

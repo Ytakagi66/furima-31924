@@ -3,17 +3,20 @@ class OrderShipping
   attr_accessor :number, :exp_month, :exp_year, :cvc, :postal_code, :city, :address, :building, :phone_number, :prefecture_id,
    :user_id, :item_id
   
+   VALID_POSTCODE_REGEX = /\A\d{3}[-]\d{4}\z/
+   VALID_PHONENUMBER_REGEX = /\A\d{10}\z/
+   
   with_options presence: true do
     validates :number
     validates :cvc
     validates :exp_month
     validates :exp_year
-    validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/}
+    validates :postal_code, format: {with: VALID_POSTCODE_REGEX}
     validates :prefecture_id, numericality: { other_than: 0 }
     validates :city
     validates :address
     validates :building
-    validates :phone_number
+    validates :phone_number, format: {with: VALID_PHONENUMBER_REGEX}
   end
 
   def save

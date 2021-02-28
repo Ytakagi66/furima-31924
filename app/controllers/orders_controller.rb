@@ -16,7 +16,6 @@ class OrdersController < ApplicationController
       @order_shipping.save
      redirect_to root_path
     else
-      binding.pry
       @item = Item.find(params[:item_id])
       render :index
     end

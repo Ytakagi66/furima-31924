@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
-  has_many :order
+  has_many :order, dependent: :destroy
 
   VALID_PRICE_REGEX = /\A[0-9]+\z/.freeze
 

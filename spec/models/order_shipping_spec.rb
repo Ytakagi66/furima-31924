@@ -19,7 +19,7 @@ RSpec.describe OrderShipping, type: :model do
         expect(@ordershipping.errors.full_messages).to include("Postal code can't be blank", 'Postal code is invalid')
       end
       it '郵便番号にはハイフンがないと購入できない（123-4567となる）' do
-        @ordershipping.postal_code = 1_234_567
+        @ordershipping.postal_code = 1234567
         @ordershipping.valid?
         expect(@ordershipping.errors.full_messages).to include('Postal code is invalid')
       end
@@ -54,12 +54,12 @@ RSpec.describe OrderShipping, type: :model do
         expect(@ordershipping.errors.full_messages).to include("Phone number can't be blank", 'Phone number is invalid')
       end
       it '電話番号が11桁以上だと購入できないこと' do
-        @ordershipping.phone_number = 123_456_789_012
+        @ordershipping.phone_number = 123456789012
         @ordershipping.valid?
         expect(@ordershipping.errors.full_messages).to include('Phone number is invalid')
       end
       it '電話番号にはハイフンがあると購入できないこと' do
-        @ordershipping.phone_number = 0o120 - 34 - 5678
+        @ordershipping.phone_number = 0120 - 34 - 5678
         @ordershipping.valid?
         expect(@ordershipping.errors.full_messages).to include('Phone number is invalid')
       end

@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :redirect_order, only: [:index]
+
   def index
     @order = Order.new
     set_item
@@ -19,11 +22,9 @@ class OrdersController < ApplicationController
         card: shipping_params[:token], # カードトークン
         currency: 'jpy' # 通貨の種類（日本円）
       )
-      binding.pry
-      @order_shipping.save　 # order_shipping.rbに記述されたsaveメソッド
+      @order_shipping.save
       redirect_to root_path
     else
-      set_item
       render :index
     end
   end
@@ -37,7 +38,13 @@ class OrdersController < ApplicationController
   def shipping_params
     set_item
     params.require(:order_shipping).permit(:postal_code, :city, :address, :building, :phone_number, :prefecture_id).merge(
-      user_id: current_user.id, token: params[:token], item_id: @item.id
-    )
+      user_id: current_user.id, token: params[:token], item_id: @item.id)
+  end
+
+  def redirect_order
+    set_item
+    if current_user.id == @item.user.id || @item.order.present?
+      redirect_to root_path      
+    end
   end
 end

@@ -1,7 +1,7 @@
 class OrderShipping
   include ActiveModel::Model
-  attr_accessor :number, :exp_month, :exp_year, :cvc, :postal_code, :city, :address, :building, :phone_number, :prefecture_id,
-                :user_id, :item_id, :token
+  attr_accessor :postal_code, :city, :address, :building, :phone_number, :prefecture_id, :user_id, :item_id, :token
+
 
   VALID_POSTCODE_REGEX = /\A\d{3}-\d{4}\z/
   VALID_PHONENUMBER_REGEX = /\A\d{10,11}\z/

@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
-  before_action :redirect_order, only: [:index]
+  before_action :redirect_order, only: [:index, :create]
 
   def index
     @order_shipping = OrderShipping.new

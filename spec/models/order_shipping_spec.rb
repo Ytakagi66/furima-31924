@@ -2,12 +2,20 @@ require 'rails_helper'
 
 RSpec.describe OrderShipping, type: :model do
   before do
+    @user_id = FactoryBot.build(:user)
+    @item_id = FactoryBot.build(:item)
     @ordershipping = FactoryBot.build(:order_shipping)
+    @ordershipping.user_id = @user_id
+    @ordershipping.item_id = @item_id
   end
 
   describe '購入機能' do
     describe '商品購入できる時' do
       it 'カード情報と住所情報を適切に入力すると、商品の購入ができる' do
+        expect(@ordershipping).to be_valid
+      end
+      it '建物情報がなくても商品の購入ができる' do
+        @ordershipping.building = nil
         expect(@ordershipping).to be_valid
       end
     end
@@ -19,12 +27,12 @@ RSpec.describe OrderShipping, type: :model do
         expect(@ordershipping.errors.full_messages).to include("Postal code can't be blank", 'Postal code is invalid')
       end
       it '郵便番号にはハイフンがないと購入できない（123-4567となる）' do
-        @ordershipping.postal_code = 1234567
+        @ordershipping.postal_code = '1234567'
         @ordershipping.valid?
         expect(@ordershipping.errors.full_messages).to include('Postal code is invalid')
       end
       it '郵便番号が1234-567の形だと購入できない' do
-        @ordershipping.postal_code = 1234 - 567
+        @ordershipping.postal_code = '1234-567'
         @ordershipping.valid?
         expect(@ordershipping.errors.full_messages).to include('Postal code is invalid')
       end
@@ -54,12 +62,12 @@ RSpec.describe OrderShipping, type: :model do
         expect(@ordershipping.errors.full_messages).to include("Phone number can't be blank", 'Phone number is invalid')
       end
       it '電話番号が11桁以上だと購入できないこと' do
-        @ordershipping.phone_number = 123456789012
+        @ordershipping.phone_number = '123456789012'
         @ordershipping.valid?
         expect(@ordershipping.errors.full_messages).to include('Phone number is invalid')
       end
       it '電話番号にはハイフンがあると購入できないこと' do
-        @ordershipping.phone_number = 0120 - 34 - 5678
+        @ordershipping.phone_number = '0120-34-5678'
         @ordershipping.valid?
         expect(@ordershipping.errors.full_messages).to include('Phone number is invalid')
       end
@@ -91,6 +99,3 @@ RSpec.describe OrderShipping, type: :model do
     end
   end
 end
-
-
-

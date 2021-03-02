@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_item, only: [:index, :create, :redirect_order]
+  before_action :set_item, only: [:index, :create]
   before_action :redirect_order, only: [:index]
 
   def index
@@ -35,12 +35,11 @@ class OrdersController < ApplicationController
 
   def shipping_params
     params.require(:order_shipping).permit(:postal_code, :city, :address, :building, :phone_number, :prefecture_id).merge(
-      user_id: current_user.id, token: params[:token], item_id: @item.id)
+      user_id: current_user.id, token: params[:token], item_id: @item.id
+    )
   end
 
   def redirect_order
-    if current_user.id == @item.user.id || @item.order.present?
-      redirect_to root_path      
-    end
+    redirect_to root_path if current_user.id == @item.user.id || @item.order.present?
   end
 end

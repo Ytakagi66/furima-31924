@@ -24,7 +24,7 @@
     </div>
 
     <%# ログインしているユーザーのみ表示する %>
-    <% if user_signed_in? %>
+    <% if user_signed_in? && @item.order.blank? %>
       <%# ログインしているユーザーが出品者の時のみ表示する　%>
       <% if current_user.id == @item.user.id %>
         <%= link_to "商品の編集", edit_item_path, method: :get, class: "item-red-btn" %>

@@ -10,12 +10,7 @@ class OrdersController < ApplicationController
   def create
     @order_shipping = OrderShipping.new(shipping_params)
     if @order_shipping.valid?
-      Payjp.api_key = ENV['PAYJP_SECRET_KEY']  # PAY.JPテスト秘密鍵の設定
-      Payjp::Charge.create(
-        amount: @item.price, # 商品の値段
-        card: shipping_params[:token], # カードトークン
-        currency: 'jpy' # 通貨の種類（日本円）
-      )
+      set_payjp
       @order_shipping.save
       redirect_to root_path
     else
@@ -37,5 +32,14 @@ class OrdersController < ApplicationController
 
   def redirect_order
     redirect_to root_path if current_user.id == @item.user.id || @item.order.present?
+  end
+
+  def set_payjp
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']  # PAY.JPテスト秘密鍵の設定
+    Payjp::Charge.create(
+      amount: @item.price, # 商品の値段
+      card: shipping_params[:token], # カードトークン
+      currency: 'jpy' # 通貨の種類（日本円）
+    )
   end
 end

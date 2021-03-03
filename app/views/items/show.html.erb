@@ -6,13 +6,12 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <%# 商品が売れている場合は、sold outを表示しましょう %>
+      
       <% if @item.order.present? %>
         <div class="sold-out">
           <span>Sold Out!!</span>
         </div>
       <% end %>
-      <%# //商品が売れている場合は、sold outを表示しましょう %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
@@ -23,7 +22,7 @@
       </span>
     </div>
 
-    <%# ログインしているユーザーのみ表示する %>
+    <%# ログインしているユーザーのみかつ商品未購入の場合 %>
     <% if user_signed_in? && @item.order.blank? %>
       <%# ログインしているユーザーが出品者の時のみ表示する　%>
       <% if current_user.id == @item.user.id %>
@@ -32,11 +31,9 @@
         <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
       <%# ログインしているユーザーが出品者の時のみ表示する　%>
       <% else %>
-        <%# 出品者以外がログイン中の時のみ表示する　%>
         <%# 商品が売れていない場合のみ表示する %>
           <%= link_to "購入画面に進む", item_orders_path(@item.id) ,class:"item-red-btn"%>
         <%# //商品が売れていない場合のみ表示する %>
-        <%# 出品者以外がログイン中の時のみ表示する　%>
       <% end %>
     <% end %>
     <%# ログインしているユーザーのみ表示する %>

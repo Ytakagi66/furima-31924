@@ -99,7 +99,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
-      it '販売価格はに数字以外が含まれていると出品できない' do
+      it '販売価格は数字以外が含まれていると出品できない' do
         @item.price = '価格３００'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
